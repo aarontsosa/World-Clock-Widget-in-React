@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './App.css';
-import Clock from './WorldClock.js'
+import Buildclock from './WorldClock.js'
 
 class App extends Component {
   constructor(props) {
@@ -13,14 +13,14 @@ class App extends Component {
               time: new Date().toLocaleTimeString('en-US',{timeZone: "America/New_York"})
           },
           {
-            cityName: "Los Angeles",
-            utc: "America/Los_Angeles",
-            time: new Date().toLocaleTimeString('en-US', {timeZone: "America/Los_Angeles"})
+              cityName: "Los Angeles",
+              utc: "America/Los_Angeles",
+              time: new Date().toLocaleTimeString('en-US', {timeZone: "America/Los_Angeles"})
           },
           {
-            cityName: "Tokyo",
-            utc: "Asia/Tokyo",
-            time: new Date().toLocaleTimeString('en-US', {timeZone: "Asia/Tokyo"})
+              cityName: "Tokyo",
+              utc: "Asia/Tokyo",
+              time: new Date().toLocaleTimeString('en-US', {timeZone: "Asia/Tokyo"})
           }
         ]
   }
@@ -28,49 +28,29 @@ class App extends Component {
 
   componentDidMount(){
       setInterval(() => {
+        let newCities = Object.assign([], this.state.cities);
+        for(let i=0; i < Object.keys(newCities).length; i++){
+          newCities[i].time = new Date().toLocaleTimeString('en-US',{timeZone: this.state.cities[i].utc})
+          newCities[i].cityName = this.state.cities[i].cityName
+        }
       this.setState({
-        cities:[0].time = new Date().toLocaleTimeString('en-US',{timeZone: "America/New_York"}),
-        cities:[1].time = new Date().toLocaleTimeString('en-US', {timeZone: "America/Los_Angeles"}),
-        cities:[2].time = new Date().toLocaleTimeString('en-US', {timeZone: "Asia/Tokyo"})
+        cities: newCities
           })  
       }, 1000)
     }
 
   render() {
     return (
-      <div>
-        <div>
-          <Clock 
-          time={this.state.cities[0].time} 
-          cityName={this.state.cities[0].cityName} 
-          utc={this.state.cities[0].utc} 
-          updateFunc={this._Update} 
-          name='0'
-          />
-          <Clock 
-          time={this.state.cities[1].time} 
-          cityName={this.state.cities[1].cityName} 
-          utc={this.state.cities[1].utc} 
-          updateFunc={this._Update} 
-          name='1'
-          />
-          <Clock 
-          time={this.state.cities[2].time} 
-          cityName={this.state.cities[2].cityName} 
-          utc={this.state.cities[2].utc} 
-          updateFunc={this._Update} 
-          name='2'
-          />
-        </div>
-      </div>
+      <Buildclock array={this.state.cities} updateFunc={this._Update}/>
     )
   }
 
   _Update = (event) => {
-    console.log(event.target)
-    console.log(event.target.name)
+    let newCities = Object.assign([], this.state.cities);
+    newCities[event.target.name].utc = event.target.value
+    newCities[event.target.name].cityName = event.target.options[event.target.selectedIndex].textContent
     this.setState({
-      cities:[event.target.name].utc = event.target.value
+      cities: newCities
     })
   }
 
