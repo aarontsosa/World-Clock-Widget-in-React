@@ -6,38 +6,66 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTime: (new Date().toLocaleTimeString()),
-      currentTimeZone: "America/New_York"
-    }
+      cities: [
+          {
+              cityName: "New York",
+              time: new Date().toLocaleTimeString('en-US',{timeZone: "America/New_York"})
+          },
+          {
+            cityName: "Los Angeles",
+            time: new Date().toLocaleTimeString('en-US', {timeZone: "America/Los_Angeles"})
+          },
+          {
+            cityName: "Tokyo",
+            time: new Date().toLocaleTimeString('en-US', {timeZone: "Asia/Tokyo"})
+          }
+        ]
+  }
   }
 
   componentDidMount(){
       setInterval(() => {
-      let options = {timeZone: this.state.currentTimeZone}
-      let newTime = (new Date().toLocaleTimeString('en-US', options))
       this.setState({
-        currentTime: newTime
-        })  
-    }, 1000)
-  }
+        cities: [
+          {
+            cityName: "New York",
+            time: new Date().toLocaleTimeString('en-US',{timeZone: "America/New_York"})
+          },
+          {
+            cityName: "Los Angeles",
+            time: new Date().toLocaleTimeString('en-US', {timeZone: "America/Los_Angeles"})
+          },
+          {
+            cityName: "Tokyo",
+            time: new Date().toLocaleTimeString('en-US', {timeZone: "Asia/Tokyo"})
+          }
+
+          ]
+          })  
+      }, 1000)
+    }
 
   render() {
     return (
       <div>
-        <Clock timezone={this.state.currentTimeZone} time={this.state.currentTime} updateHandler={this._Update} />
+        <div>
+          <Clock time={this.state.cities[0].time} cityName={this.state.cities[0].cityName} />
+          <Clock time={this.state.cities[1].time} cityName={this.state.cities[1].cityName} />
+          <Clock time={this.state.cities[2].time} cityName={this.state.cities[2].cityName} />
+        </div>
       </div>
     )
   }
 
-  _Update = (event) => {
-    console.log(event)
-    let options = {timeZone: event.target.value}
-    let newTime = (new Date().toLocaleTimeString('en-US', options))
-    this.setState({
-      currentTimeZone: event.target.value,
-      currentTime: newTime
-    })
-  }
+  // _Update = (event) => {
+  //   console.log(event)
+  //   let options = {timeZone: event.target.value}
+  //   let newUTC = event.target.value
+  //   this.setState({
+  //     currentTimeZone: event.target.value,
+  //     currentTime: newTime
+  //   })
+  // }
 
 }
 
