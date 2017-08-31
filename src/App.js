@@ -21,8 +21,30 @@ class App extends Component {
               cityName: "Tokyo",
               utc: "Asia/Tokyo",
               time: new Date().toLocaleTimeString('en-US', {timeZone: "Asia/Tokyo"})
-          }
-        ]
+          },
+          {
+            cityName: "London",
+            utc: "Europe/London",
+            time: new Date().toLocaleTimeString('en-US', {timeZone: "Europe/London"})
+        }
+        ],
+    cities2: [
+      {
+        cityName: "Chicago",
+        utc: "America/Chicago",
+        time: new Date().toLocaleTimeString('en-US',{timeZone: "America/Chicago"})
+      },
+      {
+        cityName: "Denver",
+        utc: "America/Denver",
+        time: new Date().toLocaleTimeString('en-US',{timeZone: "America/Denver"})
+      },
+      {
+        cityName: "Sydney",
+        utc: "Australia/Sydney",
+        time: new Date().toLocaleTimeString('en-US',{timeZone: "Australia/Sydney"})
+      },
+    ]
   }
   }
 
@@ -41,7 +63,14 @@ class App extends Component {
 
   render() {
     return (
-      <Buildclock array={this.state.cities} updateFunc={this._Update}/>
+      <div className="row">
+        <div className="col-sm-6 col-md-12 col-lg-12 col-xs-6">
+          <Buildclock array={this.state.cities} />
+        </div>
+        <div className="col-sm-6 col-md-12 col-lg-12 col-xs-6">
+          <Buildclock array={this.state.cities2} />
+        </div>
+      </div>
     )
   }
 
