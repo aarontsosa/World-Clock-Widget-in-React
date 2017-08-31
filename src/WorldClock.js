@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import _Update from './App.js'
+import City from './City.js'
+import Time from './Time.js'
+import Dropdown from './Dropdown.js'
 
 class WorldClock extends Component {
     constructor(props) {
@@ -15,22 +18,13 @@ class WorldClock extends Component {
     }
 
 }
-const Clock = ({time, cityName}) => (
+const Clock = ({time, cityName, utc, updateFunc, name}) => (
     <div className="col-lg-3">
       <div className="card">
         <div className="card-block">
-            <h2 className="card-title"> {cityName} </h2>
-            {/* <div className="form-group">
-            <select className="form-control" value = {timezone} onChange={updateHandler}>
-                <option value={"Europe/London"}> London </option>
-                <option value={"America/New_York"}> New York </option>
-                <option value={"America/Chicago"}> Chicago </option>
-                <option value={"America/Denver"}> Denver </option>
-                <option value={"America/Los_Angeles"}>  Los Angeles </option>
-                <option value={"Pacific/Honolulu"}>  Honolulu </option>
-            </select>
-            </div> */}
-          <h1 className="card-subtitle"> {time} </h1>
+            <City cityName={cityName} />
+            <Dropdown utc={utc} updateFunc={updateFunc} name={name}/>
+          <Time time={time} />
         </div>
       </div>
     </div>

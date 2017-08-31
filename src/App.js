@@ -9,14 +9,17 @@ class App extends Component {
       cities: [
           {
               cityName: "New York",
+              utc: "America/New_York",
               time: new Date().toLocaleTimeString('en-US',{timeZone: "America/New_York"})
           },
           {
             cityName: "Los Angeles",
+            utc: "America/Los_Angeles",
             time: new Date().toLocaleTimeString('en-US', {timeZone: "America/Los_Angeles"})
           },
           {
             cityName: "Tokyo",
+            utc: "Asia/Tokyo",
             time: new Date().toLocaleTimeString('en-US', {timeZone: "Asia/Tokyo"})
           }
         ]
@@ -26,21 +29,9 @@ class App extends Component {
   componentDidMount(){
       setInterval(() => {
       this.setState({
-        cities: [
-          {
-            cityName: "New York",
-            time: new Date().toLocaleTimeString('en-US',{timeZone: "America/New_York"})
-          },
-          {
-            cityName: "Los Angeles",
-            time: new Date().toLocaleTimeString('en-US', {timeZone: "America/Los_Angeles"})
-          },
-          {
-            cityName: "Tokyo",
-            time: new Date().toLocaleTimeString('en-US', {timeZone: "Asia/Tokyo"})
-          }
-
-          ]
+        cities:[0].time = new Date().toLocaleTimeString('en-US',{timeZone: "America/New_York"}),
+        cities:[1].time = new Date().toLocaleTimeString('en-US', {timeZone: "America/Los_Angeles"}),
+        cities:[2].time = new Date().toLocaleTimeString('en-US', {timeZone: "Asia/Tokyo"})
           })  
       }, 1000)
     }
@@ -49,23 +40,39 @@ class App extends Component {
     return (
       <div>
         <div>
-          <Clock time={this.state.cities[0].time} cityName={this.state.cities[0].cityName} />
-          <Clock time={this.state.cities[1].time} cityName={this.state.cities[1].cityName} />
-          <Clock time={this.state.cities[2].time} cityName={this.state.cities[2].cityName} />
+          <Clock 
+          time={this.state.cities[0].time} 
+          cityName={this.state.cities[0].cityName} 
+          utc={this.state.cities[0].utc} 
+          updateFunc={this._Update} 
+          name='0'
+          />
+          <Clock 
+          time={this.state.cities[1].time} 
+          cityName={this.state.cities[1].cityName} 
+          utc={this.state.cities[1].utc} 
+          updateFunc={this._Update} 
+          name='1'
+          />
+          <Clock 
+          time={this.state.cities[2].time} 
+          cityName={this.state.cities[2].cityName} 
+          utc={this.state.cities[2].utc} 
+          updateFunc={this._Update} 
+          name='2'
+          />
         </div>
       </div>
     )
   }
 
-  // _Update = (event) => {
-  //   console.log(event)
-  //   let options = {timeZone: event.target.value}
-  //   let newUTC = event.target.value
-  //   this.setState({
-  //     currentTimeZone: event.target.value,
-  //     currentTime: newTime
-  //   })
-  // }
+  _Update = (event) => {
+    console.log(event.target)
+    console.log(event.target.name)
+    this.setState({
+      cities:[event.target.name].utc = event.target.value
+    })
+  }
 
 }
 
