@@ -62,13 +62,14 @@ class App extends Component {
     }
 
   render() {
+    const { cities, cities2 } = this.state
     return (
       <div className="row">
         <div className="col-sm-6 col-md-12 col-lg-12 col-xs-6">
-          <Buildclock array={this.state.cities} />
+          <Buildclock array={cities} />
         </div>
         <div className="col-sm-6 col-md-12 col-lg-12 col-xs-6">
-          <Buildclock array={this.state.cities2} />
+          <Buildclock array={cities2} />
         </div>
       </div>
     )
